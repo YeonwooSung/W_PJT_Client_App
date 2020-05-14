@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    ActivityIndicator,
     StatusBar,
     Text,
     View,
@@ -18,7 +19,8 @@ export default class HomeScreen extends React.Component {
         super(props);
 
         this.state = {
-            selected: 1
+            selected: 1,
+            isLoaded: false
         };
 
         this.selectMode = this.selectMode.bind(this);
@@ -28,6 +30,10 @@ export default class HomeScreen extends React.Component {
     static navigationOptions = {
         header: null
     };
+
+    componentDidMount = () => {
+        this.setState({isLoaded: true});
+    }
 
     selectMode = (newMode) => {
         //TODO
@@ -42,20 +48,26 @@ export default class HomeScreen extends React.Component {
     }
 
     render() {
-        let {selected} = this.state;
+        let {isLoaded, selected} = this.state;
 
-        //TODO more codes...
+        if (isLoaded) {
+            return (
+                <View style={styles.body}>
+                    <StatusBar/>
+                    <View style={styles.container}>
+                        <HomeHeader navigate={this.navigateTo} />
+                        <HomeScreenBody/>
+                        <HomeScreenCards/>
+                        <ModeButtonContainer selected={selected} execOnPress={this.selectMode} />
+                    </View>
+                    <Footer/>
+                </View>
+            );
+        }
 
         return (
-            <View style={styles.body}>
-                <StatusBar/>
-                <View style={styles.container}>
-                    <HomeHeader navigate={this.navigateTo} />
-                    <HomeScreenBody/>
-                    <HomeScreenCards/>
-                    <ModeButtonContainer selected={selected} execOnPress={this.selectMode} />
-                </View>
-                <Footer/>
+            <View style={styles.container}>
+                <ActivityIndicator size="large" color="red" />
             </View>
         );
     }
