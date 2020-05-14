@@ -7,6 +7,7 @@ import {
 } from 'react-native'
 
 import Footer from './components/Footer'
+import HomeHeader from './components/HomeHeader'
 
 const BUTTON_VAL_AUTO__ = 1;  //button value for auto mode
 const BUTTON_VAL_MANUAL = 2;  //button value for manual mode
@@ -34,7 +35,7 @@ export default class HomeScreen extends React.Component {
             <View style={styles.body}>
                 <StatusBar></StatusBar>
                 <View style={styles.container}>
-                    {/* TODO 퓨리케어 미니 */}
+                    <HomeHeader/> {/* TODO props */}
                     {/* TODO 이미지 및 메인 부분 */}
                     {/* TODO 텍스트 (3개 - row) */}
                     <View style={styles.bottonContainer}>
