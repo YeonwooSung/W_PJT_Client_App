@@ -5,6 +5,7 @@ import {
     Text
 } from 'react-native'
 import MenuButton from 'react-native-menu-button'
+import PropTypes from 'prop-types';
 
 const menu = [
   {key: '0', value: '필터관리', text: '필터관리'},
@@ -14,6 +15,14 @@ const menu = [
 ];
 
 export default class HomeHeader extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    static propTypes = {
+        navigate: PropTypes.func.isRequired
+    }
+
     render() {
         return(
             <View style={styles.container}>
