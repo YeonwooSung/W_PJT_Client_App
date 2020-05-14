@@ -1,12 +1,15 @@
 import React from 'react';
 import {
     StatusBar,
+    Text,
     View,
 } from 'react-native'
 
 import Footer from './components/Footer';
 import HomeHeader from './components/HomeHeader';
 import ModeButtonContainer from './components/ModeButtonContainer';
+import HomeScreenBody from './components/HomeScreenBody';
+import HomeScreenCards from './components/HomeScreenCards';
 import {validateScreenName} from './utils';
 
 
@@ -48,8 +51,8 @@ export default class HomeScreen extends React.Component {
                 <StatusBar/>
                 <View style={styles.container}>
                     <HomeHeader navigate={this.navigateTo} />
-                    {/* TODO 이미지 및 메인 부분 */}
-                    {/* TODO 텍스트 (3개 - row) */}
+                    <HomeScreenBody/>
+                    <HomeScreenCards/>
                     <ModeButtonContainer selected={selected} execOnPress={this.selectMode} />
                 </View>
                 <Footer/>
