@@ -1,19 +1,17 @@
 import React from 'react';
 import {
-    ActivityIndicator,
     StatusBar,
     StyleSheet,
     Text,
     View,
 } from 'react-native'
-import { useNavigation } from '@react-navigation/native';
 
 import Footer from './components/Footer';
 import HomeHeader from './components/HomeHeader';
 import ModeButtonContainer from './components/ModeButtonContainer';
 import HomeScreenBody from './components/HomeScreenBody';
 import HomeScreenCards from './components/HomeScreenCards';
-import {validateScreenName} from './utils';
+import {validateScreenName, LoadingScreen} from './utils';
 
 
 export default class HomeScreen extends React.Component {
@@ -66,11 +64,7 @@ export default class HomeScreen extends React.Component {
             );
         }
 
-        return (
-            <View style={styles.container}>
-                <ActivityIndicator size="large" color="red" />
-            </View>
-        );
+        return <LoadingScreen/>;
     }
 }
 

@@ -1,9 +1,4 @@
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  ActivityIndicator
-} from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 
@@ -15,6 +10,7 @@ import { NavigationContainer } from '@react-navigation/native';
 //   ReloadInstructions,
 // } from 'react-native/Libraries/NewAppScreen';
 
+import {LoadingScreen} from './src/utils'
 import HomeScreen from './src/HomeScreen'
 import FilterManagementScreen from './src/FilterManagementScreen'
 
@@ -52,18 +48,6 @@ export default class App extends React.Component {
       );
     }
 
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator size="large" color="red" />
-      </View>
-    );
+    return <LoadingScreen/>
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: '#1a3f95',
-  },
-});

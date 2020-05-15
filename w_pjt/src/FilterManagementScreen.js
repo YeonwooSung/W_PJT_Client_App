@@ -1,11 +1,11 @@
 import React from 'react'
 import {
-    ActivityIndicator,
     StyleSheet,
     Text,
     View
 } from 'react-native'
 
+import {LoadingScreen} from './utils'
 
 export default class FilterManagementScreen extends React.Component {
     constructor(props) {
@@ -31,11 +31,7 @@ export default class FilterManagementScreen extends React.Component {
             );
         }
 
-        return (
-            <View style={styles.container}>
-                <ActivityIndicator size="large" color="red" />
-            </View>
-        )
+        return <LoadingScreen/>
     }
 }
 
