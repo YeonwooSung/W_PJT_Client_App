@@ -6,6 +6,7 @@ import {
     Text,
     View,
 } from 'react-native'
+import { useNavigation } from '@react-navigation/native';
 
 import Footer from './components/Footer';
 import HomeHeader from './components/HomeHeader';
@@ -28,10 +29,6 @@ export default class HomeScreen extends React.Component {
         this.navigateTo = this.navigateTo.bind(this);
     }
 
-    static navigationOptions = {
-        header: null
-    };
-
     componentDidMount = () => {
         this.setState({isLoaded: true});
     }
@@ -42,8 +39,11 @@ export default class HomeScreen extends React.Component {
     }
 
     navigateTo = (screenName) => {
+        let {navigate} = this.props.navigation;
+
+        // validate the screen name
         if (validateScreenName(screenName)) {
-            //this.props.navigation.navigate(screenName);
+            navigate(screenName);
             //this.props.navigation.navigate(screenName, {email: email});
         }
     }

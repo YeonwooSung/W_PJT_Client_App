@@ -16,6 +16,7 @@ import { NavigationContainer } from '@react-navigation/native';
 // } from 'react-native/Libraries/NewAppScreen';
 
 import HomeScreen from './src/HomeScreen'
+import FilterManagementScreen from './src/FilterManagementScreen'
 
 const Stack = createStackNavigator();
 
@@ -42,6 +43,10 @@ export default class App extends React.Component {
               name="home" 
               component={HomeScreen}
               />
+            <Stack.Screen
+              name="filterManagement" 
+              component={FilterManagementScreen}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       );
