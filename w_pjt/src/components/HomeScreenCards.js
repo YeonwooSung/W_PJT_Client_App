@@ -15,11 +15,16 @@ export default class HomeScreenCards extends React.Component {
     render() {
         //TODO
         {/* TODO 텍스트 (3개 - row) */}
+        return (
+            <View style={styles.container}></View>
+        );
     }
 }
 
 const styles = StyleSheet.create({
-    //
+    container: {
+        flex: 1
+    }
 });
 
 class Card extends React.Component {

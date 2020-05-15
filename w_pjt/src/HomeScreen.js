@@ -2,6 +2,7 @@ import React from 'react';
 import {
     ActivityIndicator,
     StatusBar,
+    StyleSheet,
     Text,
     View,
 } from 'react-native'

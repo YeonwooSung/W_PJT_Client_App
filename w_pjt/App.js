@@ -4,10 +4,8 @@ import {
   View,
   ActivityIndicator
 } from 'react-native';
-import {
-  createStackNavigator,
-  createAppContainer
-} from 'react-navigation';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
 
 // import {
 //   Header,
@@ -19,10 +17,7 @@ import {
 
 import HomeScreen from './src/HomeScreen'
 
-const AppStackNavigator = createStackNavigator({
-  home: { screen: HomeScreen }
-});
-const Container = createAppContainer(AppStackNavigator);
+const Stack = createStackNavigator();
 
 export default class App extends React.Component {
   state = {
@@ -37,7 +32,19 @@ export default class App extends React.Component {
     let {isLoaded} = this.state;
 
     if (isLoaded) {
-      return <Container />;
+      return (
+        <NavigationContainer initialRouteName="home">
+          <Stack.Navigator>
+            <Stack.Screen 
+              options={{
+                headerShown:false
+              }} 
+              name="home" 
+              component={HomeScreen}
+              />
+          </Stack.Navigator>
+        </NavigationContainer>
+      );
     }
 
     return (
