@@ -1,12 +1,18 @@
 import React from 'react'
 import {
-    View,
+    Dimensions,
+    Image,
     StyleSheet,
-    Text
+    Text,
+    TouchableOpacity,
+    View,
 } from 'react-native'
 import Menu, {MenuItem, MenuDivider} from 'react-native-material-menu';
 import PropTypes from 'prop-types';
 
+
+const { width, height } = Dimensions.get('window');
+const MENU_BUTTON_IMG = require('../../assets/menu.png');
 
 export default class HomeHeader extends React.Component {
     constructor(props) {
@@ -22,7 +28,7 @@ export default class HomeHeader extends React.Component {
     }
 
     handleOnSelect(value) {
-        console.log(value)
+        this.hideMenu();
         this.props.navigate(value);
     }
 
@@ -39,6 +45,12 @@ export default class HomeHeader extends React.Component {
     }
 
     render() {
+        const MENU_BUTTON = (
+            <TouchableOpacity style={styles.menuButton} onPress={this.showMenu}>
+                <Image source={MENU_BUTTON_IMG} style={styles.menuButtonImg}/>
+            </TouchableOpacity>
+        );
+
         return(
             <View style={styles.container}>
                 <View style={styles.titleContainer}>
@@ -46,10 +58,10 @@ export default class HomeHeader extends React.Component {
                 </View>
                 <Menu 
                     ref={this.setMenuRef}
-                    button={<Text onPress={this.showMenu}>menu</Text>}
+                    button={MENU_BUTTON}
                 >
-                    <MenuItem onPress={this.hideMenu}>1</MenuItem>
-                    <MenuItem onPress={this.hideMenu}>2</MenuItem>
+                    <MenuItem onPress={() => this.handleOnSelect('filterManagement')}>필터 관리</MenuItem>
+                    <MenuItem onPress={() => this.handleOnSelect('test2')}>2</MenuItem>
                 </Menu>
             </View>
         );
@@ -67,5 +79,13 @@ const styles = StyleSheet.create({
     },
     titleText: {
         //TODO
+    },
+    menuButton: {
+        width: width / 10,
+        height: width / 10
+    },
+    menuButtonImg: {
+        width: width / 10 - 5,
+        height: width / 10 - 5
     }
 });
