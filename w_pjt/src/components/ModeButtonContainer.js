@@ -6,12 +6,14 @@ import {
     StyleSheet
 } from 'react-native'
 import PropTypes from 'prop-types';
+import uuid from 'react-native-uuid'
 
 
 const BUTTON_VAL_AUTO__ = 1;  //button value for auto mode
 const BUTTON_VAL_MANUAL = 2;  //button value for manual mode
 const BUTTON_VAL_TURBO_ = 3;  //button value for turbo mode
 
+const BUTTON_CONSTANTS = [BUTTON_VAL_AUTO__, BUTTON_VAL_MANUAL, BUTTON_VAL_TURBO_]
 
 export default class ModeButtonContainer extends React.Component {
     constructor(props) {
@@ -38,32 +40,38 @@ export default class ModeButtonContainer extends React.Component {
             selected = 1;
         }
 
+        let cards = BUTTON_CONSTANTS.map(constant => {
+            let text = ''
+            switch (constant) {
+                case BUTTON_VAL_AUTO__:
+                    text = '자동';
+                    break;
+                case BUTTON_VAL_MANUAL:
+                    text = '수동';
+                    break;
+                case BUTTON_VAL_TURBO_:
+                    text = '쾌속';
+                    break;
+                default:
+                    return;
+            }
+
+            return (
+                <TouchableOpacity
+                    style={(selected == constant) ? styles.button_clicked : styles.button_not_clicked} 
+                    onPress={() => this.changeMode(constant)} 
+                    key={uuid.v1()}
+                >
+                    <Text style={(selected == constant) ? styles.text_clicked : styles.text_not_clicked}>
+                        {text}
+                    </Text>
+                </TouchableOpacity>
+            )
+        });
+
         return (
             <View style={styles.bottonContainer}>
-                <TouchableOpacity
-                    style={(selected == BUTTON_VAL_AUTO__) ? styles.button_clicked : styles.button_not_clicked} 
-                    onPress={() => this.changeMode(BUTTON_VAL_AUTO__)}
-                >
-                    <Text style={(selected == BUTTON_VAL_AUTO__) ? styles.text_clicked : styles.text_not_clicked}>
-                        자동
-                    </Text>
-                </TouchableOpacity>
-                <TouchableOpacity 
-                    style={(selected == BUTTON_VAL_MANUAL) ? styles.button_clicked : styles.button_not_clicked}
-                    onPress={() => this.changeMode(BUTTON_VAL_MANUAL)}
-                >
-                    <Text style={(selected == BUTTON_VAL_MANUAL) ? styles.text_clicked : styles.text_not_clicked}>
-                        수동
-                    </Text>
-                </TouchableOpacity>
-                <TouchableOpacity 
-                    style={(selected == BUTTON_VAL_TURBO_) ? styles.button_clicked : styles.button_not_clicked}
-                    onPress={() => this.changeMode(BUTTON_VAL_TURBO_)}
-                >
-                    <Text style={(selected == BUTTON_VAL_TURBO_) ? styles.text_clicked : styles.text_not_clicked}>
-                        쾌속
-                    </Text>
-                </TouchableOpacity>
+                {cards}
             </View>
         );
     }
