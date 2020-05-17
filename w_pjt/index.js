@@ -9,5 +9,5 @@ import config from './aws-exports'
 import App from './App';
 import {name as appName} from './app.json';
 
-Amplify.configure(config)
+Amplify.configure(config);
 AppRegistry.registerComponent(appName, () => App);

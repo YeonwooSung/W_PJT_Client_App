@@ -13,7 +13,7 @@ const BUTTON_VAL_AUTO__ = 1;  //button value for auto mode
 const BUTTON_VAL_MANUAL = 2;  //button value for manual mode
 const BUTTON_VAL_TURBO_ = 3;  //button value for turbo mode
 
-const BUTTON_CONSTANTS = [BUTTON_VAL_AUTO__, BUTTON_VAL_MANUAL, BUTTON_VAL_TURBO_]
+const BUTTON_CONSTANTS = [BUTTON_VAL_AUTO__, BUTTON_VAL_MANUAL, BUTTON_VAL_TURBO_];
 
 export default class ModeButtonContainer extends React.Component {
     constructor(props) {
