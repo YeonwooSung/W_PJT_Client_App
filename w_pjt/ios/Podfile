@@ -79,6 +79,8 @@ target 'w_pjt' do
 
   pod 'RNAWSCognito', :path => '../node_modules/amazon-cognito-identity-js'
 
+  pod 'react-native-webview', :path => '../node_modules/react-native-webview'
+
   target 'w_pjtTests' do
     inherit! :complete
     # Pods for testing

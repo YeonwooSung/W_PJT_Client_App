@@ -71,8 +71,10 @@ export default class HomeHeader extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        flex: 1,
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        // flex: 1,
+        width: width,
+        height: height / 8
     },
     titleContainer: {
         //
