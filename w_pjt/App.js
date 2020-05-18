@@ -10,7 +10,7 @@ import { NavigationContainer } from '@react-navigation/native';
 //   ReloadInstructions,
 // } from 'react-native/Libraries/NewAppScreen';
 
-import {LoadingScreen} from './src/utils'
+import {LoadingScreen} from './src/utils/utils'
 import HomeScreen from './src/HomeScreen'
 import FilterManagementScreen from './src/FilterManagementScreen'
 

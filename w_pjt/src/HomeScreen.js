@@ -10,7 +10,7 @@ import {
 import Footer from './components/Footer';
 import HomeHeader from './components/HomeHeader';
 import HomeScreenBody from './components/HomeScreenBody';
-import {validateScreenName, LoadingScreen} from './utils';
+import {validateScreenName, LoadingScreen} from './utils/utils';
 
 
 const {width, height} = Dimensions.get('window');

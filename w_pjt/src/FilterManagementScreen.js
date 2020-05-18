@@ -8,7 +8,7 @@ import {
     View
 } from 'react-native'
 
-import {LoadingScreen} from './utils'
+import {LoadingScreen} from './utils/utils'
 
 export default class FilterManagementScreen extends React.Component {
     constructor(props) {

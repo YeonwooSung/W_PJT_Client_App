@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { Text } from 'react-native-svg'
 import { StackedBarChart, Grid } from 'react-native-svg-charts'
 
-import * as theme from '../themes';
+import * as theme from '../utils/themes';
 
 
 // cut off value
