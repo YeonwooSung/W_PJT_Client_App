@@ -65,10 +65,9 @@ export default class HomeScreenBody extends React.Component {
                 <Text
                     key={1}
                     // y={height - 10}
-                    // x={width / 2}
                     y={height / 2}
                     x={width / 2}
-                    fontSize={20}
+                    fontSize={theme.sizes.normal} //TODO sizes.h3? h4? normal?
                     fill={completed > CUT_OFF ? 'white' : 'gray'}
                     alignmentBaseline={'middle'}
                     textAnchor={'middle'}
@@ -92,10 +91,9 @@ export default class HomeScreenBody extends React.Component {
                 <Text
                     key={1}
                     // y={height - 10}
-                    // x={width / 2}
                     y={height / 2}
                     x={width / 2}
-                    fontSize={20}
+                    fontSize={theme.sizes.normal}
                     fill={completed > CUT_OFF ? 'white' : 'gray'}
                     alignmentBaseline={'middle'}
                     textAnchor={'middle'}

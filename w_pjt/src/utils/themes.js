@@ -30,6 +30,7 @@ const sizes = {
     paragraph: 15,
     caption: 13,
     captionMedium: 12,
+    normal: 20
 };
 
 const fonts = {
