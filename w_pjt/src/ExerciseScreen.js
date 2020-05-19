@@ -9,10 +9,9 @@ import {
 } from 'react-native'
 import { LineChart, XAxis, YAxis, Grid } from 'react-native-svg-charts'
 
-import {LoadingScreen} from './utils/utils'
+import {LoadingScreen, _TIMESTAMP_TO_TIME} from './utils/utils'
 
 
-const _TIMESTAMP_TO_TIME = 1000;
 
 const xAxesSvg = {
     fontSize: 12,

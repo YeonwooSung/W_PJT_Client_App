@@ -14,7 +14,8 @@ export function validateScreenName(screenName) {
 
 const screenNameList = [
     'filterManagement',
-    'exercise'
+    'exercise',
+    'usage'
 ]
 
 export const yyyyMMddhhmmss = (date) => {
@@ -50,3 +51,5 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     }
 });
+
+export const _TIMESTAMP_TO_TIME = 1000;
