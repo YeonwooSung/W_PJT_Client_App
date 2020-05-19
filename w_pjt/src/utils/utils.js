@@ -17,6 +17,23 @@ const screenNameList = [
     'exercise'
 ]
 
+export const yyyyMMddhhmmss = (date) => {
+    var MM = date.getMonth() + 1; // getMonth() is zero-based
+    var dd = date.getDate();
+    var hh = date.getHours();
+    var mm = date.getMinutes();
+    var ss = date.getSeconds();
+
+    return [
+        //TODO date.getFullYear(),
+        (MM > 9 ? '' : '0') + MM,
+        (dd > 9 ? '' : '0') + dd,
+        (hh > 9 ? '' : '0') + hh,
+        (mm > 9 ? '' : '0') + mm,
+        (ss > 9 ? '' : '0') + ss,
+    ].join('');
+};
+
 export class LoadingScreen extends React.Component {
     render() {
         return (

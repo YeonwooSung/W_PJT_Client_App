@@ -168,7 +168,7 @@ export default class ExerciseScreen extends React.Component {
                                 xAccessor={({ item }) => item.datetime} 
                                 formatLabel={value => {
                                     //need spaces in order for last time ti fit in screen-else it disappears
-                                    //return "     " + dateFns.format(value, "HH:mm");
+                                    //return "     " + dateFns.format(value, "HH:mm");  ->  utils.yyyyMMddhhmm(date) ??
                                     //TODO if (...) return ""  ->  to show only some of x values
                                     return "     " + value.toString();
                                     }
@@ -185,21 +185,6 @@ export default class ExerciseScreen extends React.Component {
         return (<LoadingScreen/>);
     }
 }
-
-const yyyyMMddhhmm = () => {
-    var MM = this.getMonth() + 1; // getMonth() is zero-based
-    var dd = this.getDate();
-    var hh = this.getHours();
-    var mm = this.getMinutes();
-
-    return [
-        //this.getFullYear(),
-        (MM > 9 ? '' : '0') + MM,
-        (dd > 9 ? '' : '0') + dd,
-        (hh > 9 ? '' : '0') + hh,
-        (mm > 9 ? '' : '0') + mm
-    ].join('');
-};
 
 const styles = StyleSheet.create({
     container: {
