@@ -34,7 +34,7 @@ export default class HomeScreen extends React.Component {
 
     componentDidMount = () => {
         this.getData();
-        this.focusListener = this.props.navigation.addListener('didFocus', () => {
+        this.focusListener = this.props.navigation.addListener('focus', () => {
             this.refreshData();
         });
     }
@@ -128,15 +128,15 @@ export default class HomeScreen extends React.Component {
                 <SafeAreaView style={styles.body}>
                     <StatusBar/>
                     <View style={styles.container}>
-                        <HomeHeader navigate={this.navigateTo} />
+                        <HomeHeader batteryStatus={battery_status} passBatteryStatus={true} />
                         <HomeScreenBody 
                             isRefreshing={isRefreshing} 
-                            battery_status={battery_status} 
                             filter_cleaning_percentage={filter_cleaning_percentage} 
-                            filter_remaining_percentage={filter_remaining_percentage}
+                            filter_remaining_percentage={filter_remaining_percentage} 
+                            navigate={this.navigateTo}
                         />
+                        <Footer/>
                     </View>
-                    <Footer/>
                 </SafeAreaView>
             );
         }

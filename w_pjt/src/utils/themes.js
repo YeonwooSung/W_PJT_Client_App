@@ -22,6 +22,7 @@ const colors = {
 };
 
 const sizes = {
+    base: 14,
     font: 15,
     h1: 48,
     h2: 34,

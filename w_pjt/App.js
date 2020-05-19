@@ -12,8 +12,9 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import {LoadingScreen} from './src/utils/utils'
 import HomeScreen from './src/HomeScreen'
-import FilterManagementScreen from './src/FilterManagementScreen'
 import ExerciseScreen from './src/ExerciseScreen'
+import UsageScreen from './src/UsageScreen'
+
 
 const Stack = createStackNavigator();
 
@@ -40,13 +41,13 @@ export default class App extends React.Component {
               name="home" 
               component={HomeScreen}
               />
-            <Stack.Screen
-              name="filterManagement" 
-              component={FilterManagementScreen}
-            />
             <Stack.Screen 
               name="exercise" 
               component={ExerciseScreen} 
+            />
+            <Stack.Screen 
+              name="usage" 
+              component={UsageScreen} 
             />
           </Stack.Navigator>
         </NavigationContainer>

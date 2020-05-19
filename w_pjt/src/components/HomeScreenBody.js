@@ -4,6 +4,7 @@ import {
     Dimensions,
     ScrollView,
     StyleSheet,
+    TouchableOpacity,
     View,
 } from 'react-native'
 import PropTypes from 'prop-types';
@@ -11,7 +12,8 @@ import { Text } from 'react-native-svg'
 import { StackedBarChart, Grid } from 'react-native-svg-charts'
 
 import * as theme from '../utils/themes';
-import BatteryStatusView from './BatteryStatusView';
+import Block from './Block'
+import ButtonBlock from './ButtonBlock'
 
 
 // cut off value
@@ -19,7 +21,7 @@ const CUT_OFF = 55;
 
 // constants for components' sizes
 const {width, height} = Dimensions.get('window');
-const GRAPH_CONTAINER_WIDTH  = width / 2;
+const GRAPH_CONTAINER_WIDTH  = width / 5 * 2;
 const GRAPH_CONTAINER_HEIGHT = (height / 3);
 
 // constants for keys of bar charts
@@ -27,7 +29,7 @@ const FILTER_CLEANING_KEYS = ['completed', 'todo'];
 const FILTER_REMAINING_KEYS = ['remaining', 'used'];
 
 // lists of colors
-const COLORS_CLEANING  = [theme.colors.blue, theme.colors.lightblue]
+const COLORS  = [theme.colors.blue, theme.colors.lightblue]
 const COLORS_REMAINING = [theme.colors.purple, theme.colors.lightpurple]
 
 
@@ -38,17 +40,17 @@ export default class HomeScreenBody extends React.Component {
 
     static propTypes = {
         isRefreshing: PropTypes.bool.isRequired,
-        battery_status: PropTypes.string.isRequired,
         filter_cleaning_percentage: PropTypes.number.isRequired,
         filter_remaining_percentage: PropTypes.number.isRequired,
+        navigate: PropTypes.func.isRequired
     }
 
     render() {
         const {
             isRefreshing, 
-            battery_status, 
             filter_cleaning_percentage, 
-            filter_remaining_percentage
+            filter_remaining_percentage,
+            navigate
         } = this.props;
 
         const cleaning_data = [
@@ -106,36 +108,41 @@ export default class HomeScreenBody extends React.Component {
 
         return (
             <View style={styles.container}>
-                <BatteryStatusView batteryStatus={battery_status}/>
-                {isRefreshing && <ActivityIndicator size="large" color="red" />}
-                <ScrollView 
+                {/* <ScrollView 
                     //contentContainerStyle={styles.container} 
                     scrollEnabled={true} 
                     indicatorStyle={'white'} 
-                >
-                    <View>
-                        <StackedBarChart
-                            style={styles.barchartSize}
-                            keys={FILTER_CLEANING_KEYS}
-                            colors={COLORS_CLEANING}
-                            data={cleaning_data}
-                            showGrid={false}
-                            contentInset={{ top: 30, bottom: 30 }} 
-                        >
-                            <Label1/>
-                        </StackedBarChart>
-                        <StackedBarChart
-                            style={styles.barchartSize}
-                            keys={FILTER_REMAINING_KEYS}
-                            colors={COLORS_REMAINING}
-                            data={remaining_data}
-                            showGrid={false}
-                            contentInset={{ top: 30, bottom: 30 }}
-                        >
-                            <Label2/>
-                        </StackedBarChart>
-                    </View>
-                </ScrollView>
+                > */}
+                <View style={styles.innerContainer}>
+                    <StackedBarChart
+                        style={styles.barchartSize}
+                        keys={FILTER_CLEANING_KEYS}
+                        colors={COLORS}
+                        data={cleaning_data}
+                        showGrid={false}
+                        contentInset={{ top: 30, bottom: 30 }} 
+                    >
+                        <Label1/>
+                    </StackedBarChart>
+                    <StackedBarChart
+                        style={styles.barchartSize}
+                        keys={FILTER_REMAINING_KEYS}
+                        colors={COLORS}
+                        data={remaining_data}
+                        showGrid={false}
+                        contentInset={{ top: 30, bottom: 30 }}
+                    >
+                        <Label2/>
+                    </StackedBarChart>
+                </View>
+                {isRefreshing && <ActivityIndicator size="large" color="red" />}
+                <Block column space="between">
+                    <Block row space="around" style={{ marginVertical: theme.sizes.normal }}>
+                        <ButtonBlock label='exercise' navigate={navigate} />
+                        <ButtonBlock label='usage' navigate={navigate} />
+                    </Block>
+                </Block>
+                {/* </ScrollView> */}
             </View>
         );
     }
@@ -144,12 +151,15 @@ export default class HomeScreenBody extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
     },
     barchartSize: {
         width: GRAPH_CONTAINER_WIDTH,
         height: GRAPH_CONTAINER_HEIGHT,
         justifyContent: 'center'
+    },
+    innerContainer: {
+        padding: 0,
+        flexDirection: "row",
+        justifyContent: 'space-around',
     },
 });

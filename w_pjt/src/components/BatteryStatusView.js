@@ -19,8 +19,8 @@ const BATTERY_RECHARGE = require('../../assets/recharge_battery.png');
 const {width, height} = Dimensions.get('window');
 
 //constants for image size
-const IMAGE_WIDTH = width / 6;
-const IMAEG_HEIGHT = width / 6;
+const IMAGE_WIDTH = width / 8;
+const IMAEG_HEIGHT = width / 8;
 
 export default class BatteryStatusView extends React.Component {
     constructor(props) {
@@ -102,10 +102,11 @@ export default class BatteryStatusView extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     image: {
         width: IMAGE_WIDTH,
         height: IMAEG_HEIGHT,
+        alignSelf: 'flex-end',
     }
 });

@@ -2,6 +2,7 @@ import React from 'react'
 import {
     ActivityIndicator,
     BackHandler,
+    Dimensions,
     Platform,
     StyleSheet,
     Text,
@@ -10,6 +11,7 @@ import {
 import { LineChart, XAxis, YAxis, Grid } from 'react-native-svg-charts'
 
 import {LoadingScreen, _TIMESTAMP_TO_TIME} from './utils/utils'
+import HomeHeader from './components/HomeHeader'
 
 
 
@@ -32,6 +34,7 @@ const verticalContentInset = {
 };
 const xAxisHeight = 50;
 
+const {height} = Dimensions.get('window');
 
 export default class ExerciseScreen extends React.Component {
     constructor(props) {
@@ -52,7 +55,7 @@ export default class ExerciseScreen extends React.Component {
 
     componentDidMount = () => {
         this.refreshData();
-        this.focusListener = this.props.navigation.addListener('didFocus', () => {
+        this.focusListener = this.props.navigation.addListener('focus', () => {
             this.refreshData();
         });
         //TODO this.blurListener = this.props.navigation.addListener('willBlur', payload => {});
@@ -103,6 +106,14 @@ export default class ExerciseScreen extends React.Component {
             if (amount > maxAmount) maxAmount = amount;
         });
 
+        let firstElement = times[0];
+        let middleElement = times[(times.length / 2)];
+        let lastElement = times[times.length - 1];
+        times = [];
+        times.push(firstElement);
+        times.push(middleElement);
+        times.push(lastElement);
+
         return [data, times, maxAmount];
     }
 
@@ -123,20 +134,11 @@ export default class ExerciseScreen extends React.Component {
         if (isLoaded) {
             return (
                 <View style={styles.container}>
+                    <HomeHeader passBatteryStatus={false} />
                     {isRefreshing &&
                         <ActivityIndicator size="large" color="red"/>
                     }
-                    <View 
-                        style = {
-                            {
-                                paddingRight: 10,
-                                paddingLeft: 10,
-                                height: 400,
-                                padding: 0,
-                                flexDirection: "row"
-                            }
-                        }
-                    >
+                    <View style={styles.svgChartsContainer}>
                         <YAxis
                             data={data} 
                             yAccessor={({ item }) => item.amount} 
@@ -145,7 +147,7 @@ export default class ExerciseScreen extends React.Component {
                             svg={yAxesSvg} 
                             formatLabel={value => (typeof value == 'number') ? value : `${value}`} 
                         />
-                        <View style={{ flex: 1, marginLeft: 10 }}>
+                        <View style={styles.lineChartContainer}>
                             <LineChart
                                 style={{ flex: 1 }}
                                 data={data}
@@ -169,14 +171,14 @@ export default class ExerciseScreen extends React.Component {
                                     //need spaces in order for last time ti fit in screen-else it disappears
                                     //return "     " + dateFns.format(value, "HH:mm");  ->  utils.yyyyMMddhhmm(date) ??
                                     //TODO if (...) return ""  ->  to show only some of x values
-                                    return "     " + value.toString();
-                                    }
-                                }
+                                    return "     " + value.toString();    
+                                }}
                                 contentInset={{ left: 10, right: 10 }}
                                 svg={xAxesSvg}
                             />
                         </View>
                     </View>
+                    {/* <View></View> */}
                 </View>
             );
         }
@@ -188,6 +190,18 @@ export default class ExerciseScreen extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+        //justifyContent: 'center',
+    },
+    svgChartsContainer: {
+        paddingRight: 10,
+        paddingLeft: 10,
+        height: height / 2,
+        padding: 0,
+        flexDirection: "row",
+        justifyContent: 'center'
+    },
+    lineChartContainer: {
+        flex: 1,
+        marginLeft: 10
     }
 });
