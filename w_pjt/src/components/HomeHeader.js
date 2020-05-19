@@ -9,10 +9,17 @@ import {
 } from 'react-native'
 import Menu, {MenuItem, MenuDivider} from 'react-native-material-menu';
 import PropTypes from 'prop-types';
+import uuid from 'react-native-uuid'
 
 
 const { width, height } = Dimensions.get('window');
 const MENU_BUTTON_IMG = require('../../assets/menu.png');
+
+const menu_items = [
+    ['exercise', '운동량'],
+    ['usage', '마스크 사용'],
+    ['filterManagement', '필터 관리'],
+];
 
 export default class HomeHeader extends React.Component {
     constructor(props) {
@@ -51,6 +58,16 @@ export default class HomeHeader extends React.Component {
             </TouchableOpacity>
         );
 
+        const menuItemList = menu_items.map(item => {
+            let [screenName, itemName] = item;
+
+            return (
+                <MenuItem key={uuid.v1()} onPress={() => this.handleOnSelect(screenName)}>
+                    {itemName}
+                </MenuItem>
+            )
+        })
+
         return(
             <View style={styles.container}>
                 <View style={styles.titleContainer}>
@@ -60,8 +77,7 @@ export default class HomeHeader extends React.Component {
                     ref={this.setMenuRef}
                     button={MENU_BUTTON}
                 >
-                    <MenuItem onPress={() => this.handleOnSelect('filterManagement')}>필터 관리</MenuItem>
-                    <MenuItem onPress={() => this.handleOnSelect('test2')}>2</MenuItem>
+                    {menuItemList}
                 </Menu>
             </View>
         );

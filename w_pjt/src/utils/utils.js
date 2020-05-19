@@ -14,7 +14,7 @@ export function validateScreenName(screenName) {
 
 const screenNameList = [
     'filterManagement',
-    ''
+    'exercise'
 ]
 
 export class LoadingScreen extends React.Component {
