@@ -11,6 +11,7 @@ import { Text } from 'react-native-svg'
 import { StackedBarChart, Grid } from 'react-native-svg-charts'
 
 import * as theme from '../utils/themes';
+import BatteryStatusView from './BatteryStatusView';
 
 
 // cut off value
@@ -105,6 +106,7 @@ export default class HomeScreenBody extends React.Component {
 
         return (
             <View style={styles.container}>
+                <BatteryStatusView batteryStatus={battery_status}/>
                 {isRefreshing && <ActivityIndicator size="large" color="red" />}
                 <ScrollView 
                     //contentContainerStyle={styles.container} 
