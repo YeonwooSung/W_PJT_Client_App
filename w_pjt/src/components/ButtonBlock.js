@@ -54,7 +54,7 @@ export default class ButtonBlock extends React.Component {
 
 const styles = StyleSheet.create({
     button: {
-        backgroundColor: 'lightgray',
+        backgroundColor: '#57A0D3',
         width: BUTTON_SIZE,  //151
         height: BUTTON_SIZE, //151
         borderRadius: BUTTON_SIZE / 2,

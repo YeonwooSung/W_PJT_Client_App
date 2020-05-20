@@ -8,8 +8,12 @@ import {
     View,
 } from 'react-native'
 import PropTypes from 'prop-types';
-import { Text } from 'react-native-svg'
-import { StackedBarChart, Grid } from 'react-native-svg-charts'
+import {
+    Text,
+    Image,
+    G
+} from 'react-native-svg'
+import { StackedBarChart } from 'react-native-svg-charts'
 
 import * as theme from '../utils/themes';
 import Block from './Block'
@@ -29,13 +33,19 @@ const FILTER_CLEANING_KEYS = ['completed', 'todo'];
 const FILTER_REMAINING_KEYS = ['remaining', 'used'];
 
 // lists of colors
-const COLORS  = [theme.colors.blue, theme.colors.lightblue]
+const COLORS  = [theme.colors.blue, theme.colors.gray]
 const COLORS_REMAINING = [theme.colors.purple, theme.colors.lightpurple]
+
+// constants for images
+const STERILIZATION_IMAGE = require('../../assets/Sterilization.png');
+const AIR_FILTER_IMAGE    = require('../../assets/air_filter.png');
 
 
 export default class HomeScreenBody extends React.Component {
     constructor(props) {
         super(props);
+
+        this.renderBarCharts = this.renderBarCharts.bind(this);
     }
 
     static propTypes = {
@@ -45,12 +55,10 @@ export default class HomeScreenBody extends React.Component {
         navigate: PropTypes.func.isRequired
     }
 
-    render() {
+    renderBarCharts() {
         const {
-            isRefreshing, 
-            filter_cleaning_percentage, 
+            filter_cleaning_percentage,
             filter_remaining_percentage,
-            navigate
         } = this.props;
 
         const cleaning_data = [
@@ -65,18 +73,27 @@ export default class HomeScreenBody extends React.Component {
             const val = `필터 살균율 : ${completed}`;
 
             return(
-                <Text
-                    key={1}
-                    // y={height - 10}
-                    y={height / 2}
-                    x={width / 2}
-                    fontSize={theme.sizes.normal} //TODO sizes.h3? h4? normal?
-                    fill={completed > CUT_OFF ? 'white' : 'gray'}
-                    alignmentBaseline={'middle'}
-                    textAnchor={'middle'}
-                >
-                    {val}
-                </Text>
+                <G>
+                    <Image
+                        width={width / 3} //"30%"
+                        height={width / 3} //"30%"
+                        x={width / 3}
+                        y={height / 3}
+                        href={STERILIZATION_IMAGE}
+                    />
+                    <Text
+                        key={1}
+                        //y={height - 10}
+                        y={height / 3 * 2}
+                        x={width / 2}
+                        fontSize={theme.sizes.normal} //TODO sizes.h3? h4? normal?
+                        fill={completed > CUT_OFF ? 'white' : 'white'}
+                        alignmentBaseline={'middle'}
+                        textAnchor={'middle'}
+                    >
+                        {val}
+                    </Text>
+                </G>
             );
         }
 
@@ -91,20 +108,63 @@ export default class HomeScreenBody extends React.Component {
             const val = `필터 잔량  : ${completed}`;
 
             return(
-                <Text
-                    key={1}
-                    // y={height - 10}
-                    y={height / 2}
-                    x={width / 2}
-                    fontSize={theme.sizes.normal}
-                    fill={completed > CUT_OFF ? 'white' : 'gray'}
-                    alignmentBaseline={'middle'}
-                    textAnchor={'middle'}
+                <G 
+                    key={0} 
+                    // x={width / 2} 
+                    // y={height / 2} 
                 >
-                    {val}
-                </Text>
+                    <Image
+                        width={width / 3}
+                        height={width / 3}
+                        x={width / 3}
+                        y={height / 3}
+                        href={AIR_FILTER_IMAGE}
+                    />
+                    <Text
+                        key={1}
+                        //y={height - 10}
+                        y={height / 3 * 2}
+                        x={width / 2}
+                        fontSize={theme.sizes.normal}
+                        fill={completed > CUT_OFF ? 'white' : 'white'}
+                        alignmentBaseline={'middle'}
+                        textAnchor={'middle'}
+                    >
+                        {val}
+                    </Text>
+                </G>
             );
         }
+
+        return (
+            <View style={styles.innerContainer}>
+                <StackedBarChart
+                    style={styles.barchartSize}
+                    keys={FILTER_CLEANING_KEYS}
+                    colors={COLORS}
+                    data={cleaning_data}
+                    showGrid={false}
+                    contentInset={{ top: 30, bottom: 30 }} 
+                >
+                    <Label1/>
+                </StackedBarChart>
+                <StackedBarChart
+                    style={styles.barchartSize}
+                    keys={FILTER_REMAINING_KEYS}
+                    colors={COLORS}
+                    data={remaining_data}
+                    showGrid={false}
+                    contentInset={{ top: 30, bottom: 30 }}
+                >
+                    <Label2/>
+                </StackedBarChart>
+            </View>
+        );
+    }
+
+
+    render() {
+        const {isRefreshing, navigate} = this.props;
 
         return (
             <View style={styles.container}>
@@ -113,30 +173,9 @@ export default class HomeScreenBody extends React.Component {
                     scrollEnabled={true} 
                     indicatorStyle={'white'} 
                 > */}
-                <View style={styles.innerContainer}>
-                    <StackedBarChart
-                        style={styles.barchartSize}
-                        keys={FILTER_CLEANING_KEYS}
-                        colors={COLORS}
-                        data={cleaning_data}
-                        showGrid={false}
-                        contentInset={{ top: 30, bottom: 30 }} 
-                    >
-                        <Label1/>
-                    </StackedBarChart>
-                    <StackedBarChart
-                        style={styles.barchartSize}
-                        keys={FILTER_REMAINING_KEYS}
-                        colors={COLORS}
-                        data={remaining_data}
-                        showGrid={false}
-                        contentInset={{ top: 30, bottom: 30 }}
-                    >
-                        <Label2/>
-                    </StackedBarChart>
-                </View>
+                {this.renderBarCharts()}
                 {isRefreshing && <ActivityIndicator size="large" color="red" />}
-                <Block column space="between">
+                <Block column space="between" style={{marginTop: width / 30}}>
                     <Block row space="around" style={{ marginVertical: theme.sizes.normal }}>
                         <ButtonBlock label='exercise' navigate={navigate} />
                         <ButtonBlock label='usage' navigate={navigate} />
