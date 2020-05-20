@@ -7,6 +7,7 @@ import {
     View
 } from 'react-native'
 import { PieChart } from 'react-native-svg-charts'
+import moment from "moment";
 
 import {LoadingScreen, _TIMESTAMP_TO_TIME} from './utils/utils'
 import HomeHeader from './components/HomeHeader'
@@ -26,13 +27,15 @@ export default class UsageScreen extends React.Component {
             isLoaded: false,
             isRefreshing: false,
             data: [],
-            times: [],
-            maxAmount: 0,
+            maxTime: 0,
+            startDate: null,
+            endDate: null,
             error: false
         }
 
         this.receiveData = this.receiveData.bind(this);
         this.refreshData = this.refreshData.bind(this);
+        this.renderOverview = this.renderOverview.bind(this);
     }
 
     componentDidMount = () => {
@@ -61,7 +64,10 @@ export default class UsageScreen extends React.Component {
             this.setState({
                 isLoaded: true,
                 isRefreshing: false,
-                data: data
+                data: data,
+                maxTime: max_continuous_count,
+                startDate: startDatetime,
+                endDate: endDatetime
             });
         } catch (error) {
             this.setState({ isLoaded: true, isRefreshing: false, error: true});
@@ -131,6 +137,26 @@ export default class UsageScreen extends React.Component {
         return [data, max_continuous_count, startDatetime, endDatetime];
     }
 
+    renderOverview() {
+        const {maxTime, startDate, endDate} = this.state;
+
+        const formatStr = 'YYYY년 MM월 DD일 HH:mm';
+        const startDateStr = moment(startDate).format(formatStr);
+        const endDateStr = moment(endDate).format(formatStr);
+        const longest = maxTime * 10; //(maxTime - 1) * 10
+
+        const dateStr1 = `최장 시간: 약 ${longest}분`;
+        const dateStr2 = `시작 시간: ${startDateStr}`;
+        const dateStr3 = `종료 시간: ${endDateStr}`;
+        return (
+            <View style={styles.dateTextContainer}>
+                <Text style={styles.dateText}>{dateStr1}</Text>
+                <Text style={styles.dateText}>{dateStr2}</Text>
+                <Text style={styles.dateText}>{dateStr3}</Text>
+            </View>
+        );
+    }
+
     render() {
         let {isLoaded, isRefreshing, data, error} = this.state;
 
@@ -160,7 +186,7 @@ export default class UsageScreen extends React.Component {
                             innerRadius={20} 
                             data={data} 
                         />
-                        {/* </PieChart> */}
+                        {this.renderOverview()}
                     </View>
                     <Footer/>
                 </View>
@@ -184,6 +210,16 @@ const styles = StyleSheet.create({
         width: GRAPH_WIDTH,
         height: GRAPH_HEIGHT,
         alignSelf: 'center',
-        justifyContent: 'center'
-    }
+        justifyContent: 'center',
+    },
+    dateTextContainer: {
+        //width: width,
+        flex: 1,
+        alignItems: 'flex-start',
+        marginBottom: width / 30,
+    },
+    dateText: {
+        fontSize: width / 27,
+        marginLeft: width / 5,
+    },
 });
